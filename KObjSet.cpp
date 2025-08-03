@@ -1,9 +1,9 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 // Sword3 Engine (c) 1999-2000 by Kingsoft
 //
 // File:	KObjSet.cpp
 // Date:	2002.01.06
-// Code:	±ß³ÇÀË×Ó
+// Code:	Â±ÃŸÂ³Ã‡Ã€Ã‹Ã—Ã“
 // Desc:	Obj Class
 //---------------------------------------------------------------------------
 #include "KCore.h"
@@ -127,7 +127,7 @@ KObjSet::~KObjSet()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º³õÊ¼»¯£¬ÔØÈëµØÍ¼objÊı¾İÄ£°å
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ³ÃµÃŠÂ¼Â»Â¯Â£Â¬Ã”Ã˜ÃˆÃ«ÂµÃ˜ÃÂ¼objÃŠÃ½Â¾ÃÃ„Â£Â°Ã¥
 //---------------------------------------------------------------------------
 BOOL	KObjSet::Init()
 {
@@ -137,7 +137,7 @@ BOOL	KObjSet::Init()
 	m_FreeIdx.Init(MAX_OBJECT);
 	m_UseIdx.Init(MAX_OBJECT);
 
-	// ¿ªÊ¼Ê±ËùÓĞµÄÊı×éÔªËØ¶¼Îª¿Õ
+	// Â¿ÂªÃŠÂ¼ÃŠÂ±Ã‹Ã¹Ã“ÃÂµÃ„ÃŠÃ½Ã—Ã©Ã”ÂªÃ‹Ã˜Â¶Â¼ÃÂªÂ¿Ã•
 	for (i = MAX_OBJECT - 1; i > 0; i--)
 	{
 		m_FreeIdx.Insert(i);
@@ -224,7 +224,7 @@ int		KObjSet::GetMoneyDataId(int nMoney)
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÌí¼ÓÒ»¸öobj£¬·µ»ØÔÚobjÊı×éÖĞµÄÎ»ÖÃ±àºÅ£¨Èç¹û <= 0 £¬Ê§°Ü£©
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃŒÃ­Â¼Ã“Ã’Â»Â¸Ã¶objÂ£Â¬Â·ÂµÂ»Ã˜Ã”ÃšobjÃŠÃ½Ã—Ã©Ã–ÃÂµÃ„ÃÂ»Ã–ÃƒÂ±Ã ÂºÃ…Â£Â¨ÃˆÃ§Â¹Ã» <= 0 Â£Â¬ÃŠÂ§Â°ÃœÂ£Â©
 //---------------------------------------------------------------------------
 int		KObjSet::Add(int nDataID, KMapPos MapPos, KObjItemInfo sItemInfo)
 {
@@ -297,7 +297,7 @@ int		KObjSet::Add(int nDataID, KMapPos MapPos, KObjItemInfo sItemInfo)
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º´ÓobjÊı¾İÎÄ¼şÖĞÔØÈëÏàÓ¦Êı¾İ
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ´Ã“objÃŠÃ½Â¾ÃÃÃ„Â¼Ã¾Ã–ÃÃ”Ã˜ÃˆÃ«ÃÃ Ã“Â¦ÃŠÃ½Â¾Ã
 //---------------------------------------------------------------------------
 int		KObjSet::AddData(int nDataID, KMapPos MapPos, int nMoneyNum, int nItemID, int nItemWidth, int nItemHeight)
 {
@@ -327,7 +327,7 @@ int		KObjSet::AddData(int nDataID, KMapPos MapPos, int nMoneyNum, int nItemID, i
 	if (i >= Obj_Kind_Num)
 		i = 0;
 	Object[nFreeNo].m_nKind = i;
-	// ´Ó ObjData ÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
+	// Â´Ã“ ObjData ÃÃ„Â¼Ã¾Ã–ÃÂ¶ÃÃˆÂ¡ÃŠÃ½Â¾Ã
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LifeTime, 0, &Object[nFreeNo].m_nLifeTime);
 	m_cTabFile.GetString(nDataID + 1, ObjDataField_Name, "", Object[nFreeNo].m_szName, sizeof(Object[nFreeNo].m_szName));
 	m_cTabFile.GetString(nDataID + 1, ObjDataField_ScriptName, "", szBuffer, sizeof(szBuffer));
@@ -364,7 +364,7 @@ int		KObjSet::AddData(int nDataID, KMapPos MapPos, int nMoneyNum, int nItemID, i
 
 	SetObjItem(nFreeNo, nItemID, nItemWidth, nItemHeight);
 
-	// if (ÓĞÁËÎï¼şÕÏ°­²ã) Éè¶¨Îï¼şÕÏ°­ (not end)
+	// if (Ã“ÃÃÃ‹ÃÃ¯Â¼Ã¾Ã•ÃÂ°Â­Â²Ã£) Ã‰Ã¨Â¶Â¨ÃÃ¯Â¼Ã¾Ã•ÃÂ°Â­ (not end)
 
 	
 	m_UseIdx.Insert(nFreeNo);
@@ -376,7 +376,7 @@ int		KObjSet::AddData(int nDataID, KMapPos MapPos, int nMoneyNum, int nItemID, i
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨objËù´øµÄÎï¼şĞÅÏ¢£¬°üÀ¨Îï¼şid£¬Îï¼şÔÚ×°±¸À¸ÖĞµÄ³¤¡¢¿í
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ‰Ã¨Â¶Â¨objÃ‹Ã¹Â´Ã¸ÂµÃ„ÃÃ¯Â¼Ã¾ÃÃ…ÃÂ¢Â£Â¬Â°Ã¼Ã€Â¨ÃÃ¯Â¼Ã¾idÂ£Â¬ÃÃ¯Â¼Ã¾Ã”ÃšÃ—Â°Â±Â¸Ã€Â¸Ã–ÃÂµÃ„Â³Â¤Â¡Â¢Â¿Ã­
 //---------------------------------------------------------------------------
 BOOL	KObjSet::SetObjItem(int nObjIndex, int nItemID, int nItemWidth, int nItemHeight)
 {
@@ -393,7 +393,7 @@ BOOL	KObjSet::SetObjItem(int nObjIndex, int nItemID, int nItemWidth, int nItemHe
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º·şÎñÆ÷¸øÄ³¸ö¿Í»§¶Ë·¢ËÍÄ³¸öobjµÄÊı¾İĞÅÏ¢
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ·Ã¾ÃÃ±Ã†Ã·Â¸Ã¸Ã„Â³Â¸Ã¶Â¿ÃÂ»Â§Â¶Ã‹Â·Â¢Ã‹ÃÃ„Â³Â¸Ã¶objÂµÃ„ÃŠÃ½Â¾ÃÃÃ…ÃÂ¢
 //---------------------------------------------------------------------------
 BOOL	KObjSet::SyncAdd(int nID, int nClient)
 {
@@ -408,7 +408,7 @@ BOOL	KObjSet::SyncAdd(int nID, int nClient)
 
 #ifndef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿Í»§¶ËÌí¼ÓÒ»¸öobj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ¿ÃÂ»Â§Â¶Ã‹ÃŒÃ­Â¼Ã“Ã’Â»Â¸Ã¶obj
 //---------------------------------------------------------------------------
 int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFrame, int nXpos, int nYpos, KObjItemInfo sInfo)
 {
@@ -439,7 +439,7 @@ int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFram
 	}
 	if (Object[nAddIndex].m_nKind == Obj_Kind_Item && sInfo.m_nMovieFlag)
 	{
-		Object[nAddIndex].m_nDropState = 1;	// ÉèÎªµô³ö¶¯»­
+		Object[nAddIndex].m_nDropState = 1;	// Ã‰Ã¨ÃÂªÂµÃ´Â³Ã¶Â¶Â¯Â»Â­
 		if (nCurFrame > 0)
 			Object[nAddIndex].m_cImageDrop.SetCurFrame(nCurFrame);
 	}
@@ -465,7 +465,7 @@ int		KObjSet::ClientAdd(int nID, int nDataID, int nState, int nDir, int nCurFram
 
 #ifndef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿Í»§¶ËÔØÈëÒ»¸öRegionµÄËùÓĞObj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ¿ÃÂ»Â§Â¶Ã‹Ã”Ã˜ÃˆÃ«Ã’Â»Â¸Ã¶RegionÂµÃ„Ã‹Ã¹Ã“ÃObj
 //---------------------------------------------------------------------------
 BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY, int nSubWorld, int nRegion)
 {
@@ -521,7 +521,7 @@ BOOL	KObjSet::ClientLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY,
 
 #ifndef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º¿Í»§¶ËÔØÈëÒ»¸öRegionµÄËùÓĞObj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ¿ÃÂ»Â§Â¶Ã‹Ã”Ã˜ÃˆÃ«Ã’Â»Â¸Ã¶RegionÂµÃ„Ã‹Ã¹Ã“ÃObj
 //---------------------------------------------------------------------------
 BOOL	KObjSet::ClientLoadRegionObj(KPakFile *pFile, DWORD dwDataSize)
 {
@@ -569,7 +569,7 @@ BOOL	KObjSet::ClientLoadRegionObj(KPakFile *pFile, DWORD dwDataSize)
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º·şÎñÆ÷¶ËÔØÈëÒ»¸öRegionµÄËùÓĞObj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ·Ã¾ÃÃ±Ã†Ã·Â¶Ã‹Ã”Ã˜ÃˆÃ«Ã’Â»Â¸Ã¶RegionÂµÃ„Ã‹Ã¹Ã“ÃObj
 //---------------------------------------------------------------------------
 BOOL	KObjSet::ServerLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY, int nSubWorld)
 {
@@ -640,7 +640,7 @@ BOOL	KObjSet::ServerLoadRegionObj(char *lpszMapPath, int nRegionX, int nRegionY,
 
 #ifdef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£º·şÎñÆ÷¶ËÔØÈëÒ»¸öRegionµÄËùÓĞObj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÂ·Ã¾ÃÃ±Ã†Ã·Â¶Ã‹Ã”Ã˜ÃˆÃ«Ã’Â»Â¸Ã¶RegionÂµÃ„Ã‹Ã¹Ã“ÃObj
 //---------------------------------------------------------------------------
 BOOL	KObjSet::ServerLoadRegionObj(int nSubWorld, KPakFile *pFile, DWORD dwDataSize)
 {
@@ -699,7 +699,7 @@ BOOL	KObjSet::ServerLoadRegionObj(int nSubWorld, KPakFile *pFile, DWORD dwDataSi
 
 #ifndef _SERVER
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÍ¨¹ıobjµÄdataidÌí¼ÓÒ»¸öobj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃÂ¨Â¹Ã½objÂµÃ„dataidÃŒÃ­Â¼Ã“Ã’Â»Â¸Ã¶obj
 //---------------------------------------------------------------------------
 int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nMapY, int nOffX, int nOffY)
 {
@@ -728,7 +728,7 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 	if (i >= Obj_Kind_Num)
 		i = 0;
 	Object[nFreeNo].m_nKind = i;
-	// ´Ó ObjData ÎÄ¼şÖĞ¶ÁÈ¡Êı¾İ
+	// Â´Ã“ ObjData ÃÃ„Â¼Ã¾Ã–ÃÂ¶ÃÃˆÂ¡ÃŠÃ½Â¾Ã
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Layer, 1, &Object[nFreeNo].m_nLayer);
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_Height, 0, &Object[nFreeNo].m_nHeight);
 	m_cTabFile.GetInteger(nDataID + 1, ObjDataField_LifeTime, 0, &Object[nFreeNo].m_nLifeTime);
@@ -826,7 +826,7 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 
 	Object[nFreeNo].m_nBelongRegion = SubWorld[0].m_Region[nRegion].m_RegionID;
 
-	// if (ÓĞÁËÎï¼şÕÏ°­²ã) Éè¶¨Îï¼şÕÏ°­
+	// if (Ã“ÃÃÃ‹ÃÃ¯Â¼Ã¾Ã•ÃÂ°Â­Â²Ã£) Ã‰Ã¨Â¶Â¨ÃÃ¯Â¼Ã¾Ã•ÃÂ°Â­
 
 	m_UseIdx.Insert(nFreeNo);
 	m_FreeIdx.Remove(nFreeNo);
@@ -835,7 +835,7 @@ int		KObjSet::AddData(int nDataID, int nSubWorld, int nRegion, int nMapX, int nM
 #endif
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÕÒÃ»ÓĞÊ¹ÓÃµÄ¿ÕÏĞobj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ•Ã’ÃƒÂ»Ã“ÃÃŠÂ¹Ã“ÃƒÂµÃ„Â¿Ã•ÃÃobj
 //---------------------------------------------------------------------------
 int		KObjSet::FindFree()
 {
@@ -843,7 +843,7 @@ int		KObjSet::FindFree()
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅĞ¶ÏÄ³¸öÀàĞÍµÄobjÊÇ²»ÊÇclientonlyÀàĞÍ
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ…ÃÂ¶ÃÃ„Â³Â¸Ã¶Ã€Ã ÃÃÂµÃ„objÃŠÃ‡Â²Â»ÃŠÃ‡clientonlyÃ€Ã ÃÃ
 //---------------------------------------------------------------------------
 int 	KObjSet::CheckClientKind(int nKind)
 {
@@ -868,7 +868,7 @@ int 	KObjSet::CheckClientKind(int nKind)
 	return -1;
 }
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÕÒÄ³¸öidµÄobj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ•Ã’Ã„Â³Â¸Ã¶idÂµÃ„obj
 //---------------------------------------------------------------------------
 int		KObjSet::FindID(int nID)
 {
@@ -891,7 +891,7 @@ int		KObjSet::FindID(int nID)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÕÒÄ³¸öÃû×ÖµÄobj
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ•Ã’Ã„Â³Â¸Ã¶ÃƒÃ»Ã—Ã–ÂµÃ„obj
 //---------------------------------------------------------------------------
 int		KObjSet::FindName(char *lpszObjName)
 {
@@ -910,7 +910,7 @@ int		KObjSet::FindName(char *lpszObjName)
 }
 
 //---------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÖ»ÄÜÔÚObj µÄ SetWorldID µÄÊ±ºòµ÷ÓÃ£¬ÆäËûÊ±ºò¶¼Ö±½ÓÊ¹ÓÃm_nObjID
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ–Â»Ã„ÃœÃ”ÃšObj ÂµÃ„ SetWorldID ÂµÃ„ÃŠÂ±ÂºÃ²ÂµÃ·Ã“ÃƒÂ£Â¬Ã†Ã¤Ã‹Ã»ÃŠÂ±ÂºÃ²Â¶Â¼Ã–Â±Â½Ã“ÃŠÂ¹Ã“Ãƒm_nObjID
 //---------------------------------------------------------------------------
 int		KObjSet::GetID()
 {
@@ -957,9 +957,11 @@ int		KObjSet::GetDataIDKind(int nDataID)
 int	KObjSet::SearchObjAt(int nX, int nY, int nRange)
 {
 	static int searchCallCount = 0;
+	static int objectsChecked = 0;  // â† Add
 	searchCallCount++;
+	objectsChecked = 0;             // â† Add
 
-	if (searchCallCount <= 5)  // Log 5 l?n d?u
+	if (searchCallCount <= 5)  // Log 5 láº§n Ä‘áº§u
 	{
 		printf("[SearchObj]Lan %d: tim tai (%d,%d) ban kinh %d\n",
 			searchCallCount, nX, nY, nRange);
@@ -994,13 +996,13 @@ int	KObjSet::SearchObjAt(int nX, int nY, int nRange)
 
 		objectsChecked++;
 
-		// KI?M TRA: có check Trap không?
+		// KIá»‚M TRA: cÃ³ check Trap khÃ´ng?
 		if (Obj_Kind_Box != Object[nIdx].m_nKind
 			&& Obj_Kind_Item != Object[nIdx].m_nKind
 			&& Obj_Kind_Money != Object[nIdx].m_nKind
 			&& Obj_Kind_Prop != Object[nIdx].m_nKind
 			&& Obj_Kind_Door != Object[nIdx].m_nKind)
-			// && Obj_Kind_Trap != Object[nIdx].m_nKind)  // ? THÊM DÒNG NÀY!
+			// && Obj_Kind_Trap != Object[nIdx].m_nKind)  // â† THÃŠM DÃ’NG NÃ€Y!
 		{
 			if (Object[nIdx].m_nKind == Obj_Kind_Trap && searchCallCount <= 5)
 			{
@@ -1038,7 +1040,7 @@ int	KObjSet::SearchObjAt(int nX, int nY, int nRange)
 			g_DebugLog("[SearchObj]Kiem tra %d objects, tim thay: %d",
 				objectsChecked, nMinIdx);
 		}
-
+	}
 		return nMinIdx;
 }
 #endif
@@ -1054,8 +1056,8 @@ DWORD	KObjSet::GetNameColor(int nColorID)
 
 #ifndef _SERVER
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÉè¶¨ÊÇ·ñÈ«²¿ÏÔÊ¾ item ºÍ money ÀàµÄ object µÄÃû×Ö
-//			bFlag ==	TRUE ÏÔÊ¾£¬bFlag == FALSE ²»ÏÔÊ¾ zroc add
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ‰Ã¨Â¶Â¨ÃŠÃ‡Â·Ã±ÃˆÂ«Â²Â¿ÃÃ”ÃŠÂ¾ item ÂºÃ money Ã€Ã ÂµÃ„ object ÂµÃ„ÃƒÃ»Ã—Ã–
+//			bFlag ==	TRUE ÃÃ”ÃŠÂ¾Â£Â¬bFlag == FALSE Â²Â»ÃÃ”ÃŠÂ¾ zroc add
 //-------------------------------------------------------------------------
 void	KObjSet::SetShowNameFlag(BOOL bFlag)
 {
@@ -1065,7 +1067,7 @@ void	KObjSet::SetShowNameFlag(BOOL bFlag)
 
 #ifndef _SERVER
 //-------------------------------------------------------------------------
-//	¹¦ÄÜ£ºÅĞ¶ÏÊÇ·ñÈ«²¿ÏÔÊ¾ item ºÍ money ÀàµÄ object µÄÃû×Ö  ·µ»ØÖµ TRUE ÏÔÊ¾£¬FALSE ²»ÏÔÊ¾
+//	Â¹Â¦Ã„ÃœÂ£ÂºÃ…ÃÂ¶ÃÃŠÃ‡Â·Ã±ÃˆÂ«Â²Â¿ÃÃ”ÃŠÂ¾ item ÂºÃ money Ã€Ã ÂµÃ„ object ÂµÃ„ÃƒÃ»Ã—Ã–  Â·ÂµÂ»Ã˜Ã–Âµ TRUE ÃÃ”ÃŠÂ¾Â£Â¬FALSE Â²Â»ÃÃ”ÃŠÂ¾
 //-------------------------------------------------------------------------
 BOOL	KObjSet::CheckShowName()
 {

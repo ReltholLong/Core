@@ -2013,9 +2013,12 @@ nNpcIndex AddNpc(nNpcTemplateId,nLevel, nSubWorldIndex, nPosX, nPosY )
 int LuaAddNpc(Lua_State* L)
 {
 	char* pName = NULL;
-	int	   nId = 0;
-	if (Lua_GetTopIndex(L) < 5) return 0;
+	int	nId = 0;
+	int nParamCount = Lua_GetTopIndex(L);
 
+	if (nParamCount < 5) return 0; // T?i thi?u 5 tham s?
+
+	// Tham s? 1: NPC Template ID ho?c Name
 	if (Lua_IsNumber(L, 1))
 	{
 		nId = (int)Lua_ValueToNumber(L, 1);
@@ -2029,14 +2032,89 @@ int LuaAddNpc(Lua_State* L)
 
 	if (nId < 0) nId = 0;
 
+	// Tham s? 2: Level
 	int nLevel = (int)lua_tonumber(L, 2);
-	//if (nLevel >= 128) nLevel = 127;
 	if (nLevel < 0) nLevel = 1;
 
-	int	nNpcIdxInfo = MAKELONG(nLevel, nId);//(nId << 7) + nLevel;
-	//question
-	int nNpcIdx = NpcSet.Add(nNpcIdxInfo, (int)lua_tonumber(L, 3), (int)lua_tonumber(L, 4), (int)lua_tonumber(L, 5));
-	//	g_StrCpy(Npc[nNpcIdx].Name, (char*)pName);
+	// Tham s? 3: SubWorld ID (không ph?i Index!)
+	int nSubWorldID = (int)lua_tonumber(L, 3);
+
+	// **QUAN TR?NG: Chuy?n d?i SubWorld ID thành SubWorld Index**
+	int nSubWorldIndex = g_SubWorldSet.SearchWorld(nSubWorldID);
+	if (nSubWorldIndex < 0) {
+		g_DebugLog("[AddNpc Error] SubWorld ID %d not found", nSubWorldID);
+		Lua_PushNumber(L, 0);
+		return 1;
+	}
+
+	// Tham s? 4,5: Position X,Y
+	int nPosX = (int)lua_tonumber(L, 4);
+	int nPosY = (int)lua_tonumber(L, 5);
+
+	// Validation
+	if (nSubWorldIndex >= MAX_SUBWORLD) {
+		g_DebugLog("[AddNpc Error] Invalid SubWorld Index: %d (from ID: %d)", nSubWorldIndex, nSubWorldID);
+		Lua_PushNumber(L, 0);
+		return 1;
+	}
+
+	if (nPosX < 0 || nPosY < 0) {
+		g_DebugLog("[AddNpc Error] Invalid Position: (%d,%d)", nPosX, nPosY);
+		Lua_PushNumber(L, 0);
+		return 1;
+	}
+
+	// T?o NPC v?i SubWorld Index (dã chuy?n d?i t? ID)
+	int nNpcIdxInfo = MAKELONG(nLevel, nId);
+	int nNpcIdx = NpcSet.Add(nNpcIdxInfo, nSubWorldIndex, nPosX, nPosY);
+
+	if (nNpcIdx <= 0) {
+		g_DebugLog("[AddNpc Error] Failed to create NPC. Template:%d Level:%d SubWorldID:%d Pos:(%d,%d)",
+			nId, nLevel, nSubWorldID, nPosX, nPosY);
+		Lua_PushNumber(L, 0);
+		return 1;
+	}
+
+	// Tham s? 6: Script Path (tùy ch?n)
+	if (nParamCount >= 6 && Lua_IsString(L, 6)) {
+		const char* szScript = Lua_ValueToString(L, 6);
+		g_DebugLog("[AddNpc] Original script: %s", szScript);
+		if (szScript && strlen(szScript) > 0) {
+			strncpy(Npc[nNpcIdx].ActionScript, szScript, sizeof(Npc[nNpcIdx].ActionScript) - 1);
+			Npc[nNpcIdx].ActionScript[sizeof(Npc[nNpcIdx].ActionScript) - 1] = '\0';
+			Npc[nNpcIdx].m_ActionScriptID = g_FileName2Id((char*)szScript);
+			g_DebugLog("[AddNpc] Script ID generated: %d (0x%X)",
+				Npc[nNpcIdx].m_ActionScriptID, Npc[nNpcIdx].m_ActionScriptID);
+		}
+	}
+
+	// Tham s? 7: Camp (tùy ch?n)
+	if (nParamCount >= 7 && Lua_IsNumber(L, 7)) {
+		int nCamp = (int)Lua_ValueToNumber(L, 7);
+		if (nCamp >= 0 && nCamp < camp_num) {
+			Npc[nNpcIdx].SetCamp(nCamp);
+			Npc[nNpcIdx].SetCurrentCamp(nCamp);
+		}
+	}
+
+	// Tham s? 8: Custom Name (tùy ch?n)
+	if (nParamCount >= 8 && Lua_IsString(L, 8)) {
+		const char* szCustomName = Lua_ValueToString(L, 8);
+		if (szCustomName && strlen(szCustomName) > 0) {
+			// Sao chép tên m?i, thay th? tên g?c t? template
+			strncpy(Npc[nNpcIdx].Name, szCustomName, sizeof(Npc[nNpcIdx].Name) - 1);
+			Npc[nNpcIdx].Name[sizeof(Npc[nNpcIdx].Name) - 1] = '\0'; // Ð?m b?o null-terminated
+		}
+	}
+
+	// Log d? debug
+#ifdef _SERVER
+	g_DebugLog("[AddNpc Success] Template:%d Level:%d SubWorldID:%d->Index:%d Pos:(%d,%d) Name:'%s' Script:'%s'",
+		nId, nLevel, nSubWorldID, nSubWorldIndex, nPosX, nPosY,
+		Npc[nNpcIdx].Name,
+		Npc[nNpcIdx].ActionScript);
+#endif
+
 	Lua_PushNumber(L, nNpcIdx);
 	return 1;
 }
